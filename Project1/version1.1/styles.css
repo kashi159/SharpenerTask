@@ -1,0 +1,102 @@
+body {
+    margin-top: 40px; /* This margin just makes the text easier to read. You can remove it if you want since it can mess with your other styles. */
+    background-color: aqua;
+  }
+  
+  body::before {
+    content: "XS";
+    color: red;
+    font-size: 2rem;
+    font-weight: bold;
+    position: fixed;
+    top: 0;
+    right: 0;
+    /* display: none; */
+  }
+  
+  /* This box class is purely used for explaining how the bootstrap grid system works. */
+  .box {
+    background-color: lightblue;
+    border: 1px solid rgb(58, 214, 241); border-radius: 5px;
+    min-height: 50px;
+    /* font-size: medium; */
+  }
+  
+  @media (min-width: 576px) {
+    body::before {
+      content: "SM";
+      /* display: none; */
+    }
+  }
+  
+  @media (min-width: 768px) {
+    body::before {
+      content: "MD";
+      /* display: none; */
+    }
+  }
+  
+  @media (min-width: 992px) {
+    body::before {
+      content: "LG";
+      /* display: none; */
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    body::before {
+      content: "XL";
+      /* display: none; */
+    }
+  }
+  
+  @media (min-width: 1400px) {
+    body::before {
+      content: "XXL";
+      /* display: none; */
+    }
+  }
+  fieldset{
+    margin-top: 10px;
+    background-color: grey;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 5mm;
+    height: 500px;
+    
+  }
+  h1 {
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: coral;
+    margin:auto;
+  }
+  h3 {
+    color: rgb(12, 14, 15);
+    font-family: sans-serif;
+    text-align: center;
+}
+h6 {
+    color: rgb(12,14,15);
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+form{
+    color: rgb(50 16 54);
+    border: 2px saddlebrown;
+    padding: 30px;
+    height:fit-content
+}
+input{  
+  border-radius: 1mm;
+}
+.btn{
+    border: 2px;
+    background-color: wheat;
+}
+.msg {
+    border: 1px;
+    background-color: orangered;
+    max-width: max-content;
+    border-radius: 2px;
+}
