@@ -54,6 +54,7 @@ function onSubmit(e) {
     amount.value = '';
     description.value = '';
     }
+    //Remove item
     expense.addEventListener('click', removeItem);
 
     function removeItem(e){
