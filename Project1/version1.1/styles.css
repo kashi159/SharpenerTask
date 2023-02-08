@@ -91,8 +91,7 @@ input{
   border-radius: 1mm;
 }
 .btn{
-    border: 2px;
-    background-color: wheat;
+    background-color: rgb(131, 87, 7);
 }
 .msg {
     border: 1px;

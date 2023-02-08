@@ -36,7 +36,7 @@ function onSubmit(e) {
     var deleteBtn = document.createElement('button');
 
     //  //Add classes to delete btn
-     deleteBtn.className='btn btn-danger btn-sm float-right delete';
+     deleteBtn.className='btn btn-danger btn-sm float-end delete';
      // Append text node
      deleteBtn.appendChild(document.createTextNode('DELETE'));
      // Append delete btn to li
@@ -45,7 +45,7 @@ function onSubmit(e) {
 
      // Add Edit Button//
      var editBtn= document.createElement('button');
-     editBtn.className='btn btn-edit btn-sm float-right edit';
+     editBtn.className='btn btn-secondary btn-sm float-end edit';
      editBtn.appendChild(document.createTextNode('EDIT'));
      li.appendChild(editBtn);
      expense.appendChild(li);
