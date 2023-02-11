@@ -40,7 +40,7 @@ function deleteBlog(){
 //Call the function in the right way so that we can get the desired output
 create1stBlog()
 .then(create2ndBlog)
-.then(()=> deleteBlog().then(blog2 => console.log(blog2.title)))
-.then(()=> deleteBlog().then(blog1 => console.log(blog1.title)))
-.then(()=> deleteBlog())
+.then(deleteBlog).then(blog => console.log(blog.title))
+.then(deleteBlog).then(blog => console.log(blog.title))
+.then(deleteBlog)
 .catch(err => console.log(err))
