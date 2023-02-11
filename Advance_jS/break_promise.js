@@ -54,10 +54,10 @@ function deletePost(){
 //2nd method
 
 create2ndPost()
-.then(()=>{ return deletePost().then(deletedPost2 => console.log(deletedPost2.title)) })
-.then(()=>{ return create3rPost() })
-.then(()=>{ return deletePost().then(deletedPost3 => console.log(deletedPost3.title)) })
-.then(()=>{ return deletePost().then(deletedPost1 => console.log(deletedPost1.title)) })
-.then(()=>{ return deletePost()})
+.then(deletePost).then(deletedPost => console.log(deletedPost.title))
+.then(create3rPost)
+.then(deletePost).then(deletedPost => console.log(deletedPost.title))
+.then(deletePost).then(deletedPost => console.log(deletedPost.title)) 
+.then(deletePost)
 .catch(err => console.log(err))
             
