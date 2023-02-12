@@ -6,7 +6,7 @@ async function Movie() {
     function wifeBringsTicket(){
         return new Promise((resolve, reject)=>{
             setTimeout(()=>{
-                resolve('ticket')
+                reject('ticket')
             },3000)
         })
     }
@@ -34,12 +34,14 @@ async function Movie() {
             },1000)
         })
     }
-
-    let ticket = await wifeBringsTicket();
-    // Promise.all method
-   await Promise.all([getPopcorn(),getButter(),getCoke()]).then((item)=> console.log(`${item}`))
-  
-    
+    let ticket;
+    try{
+        ticket = await wifeBringsTicket();
+        // Promise.all method
+        await Promise.all([getPopcorn(),getButter(),getCoke()]).then((item)=> console.log(`${item}`))
+    }catch(e){
+        ticket = new Error("No Ticket")
+    }
     
     //Await method
     // console.log (`I have ${ticket}`)
@@ -48,6 +50,6 @@ async function Movie() {
 
     return ticket;
 }
-Movie().then((msg)=> console.log(`Myself: Here's my ${msg}`));
+Movie().then((msg)=> console.log(`${msg}`));
 console.log('Person 4')
 console.log('Person 5')
