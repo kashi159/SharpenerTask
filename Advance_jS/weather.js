@@ -13,9 +13,15 @@ function fetchData(){
 function display(weather) {
     result=JSON.stringify(weather);
     current= result.split('" "')
-        weatherInfo.innerText = `Weather of Darbhanga= ${current}`
-        weatherInfo.style.background= "grey"
-        weatherInfo.style.width="700px"
+        weatherInfo.innerHTML = `<h1>Weather of Darbhanga: ${current}</h1>`
+        // weatherInfo.style.background= "grey";
+        weatherInfo.style.width="Auto";
+        // weatherInfo.style.fontSize="20px";
+        weatherInfo.style.color="skyblue";
+        weatherInfo.style.textAlign="center";
+
+
+
 }
 
 fetchData().then(display)
