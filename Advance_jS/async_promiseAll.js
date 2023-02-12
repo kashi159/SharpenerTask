@@ -48,7 +48,7 @@ function deletePost(){
 }
 
     await createPost('HI');
-    Promise.all([printPost(),upadteLastUserActivityTime()]).then(msg => console.log(`${msg}`))
+    await Promise.all([printPost(),upadteLastUserActivityTime()]).then(msg => console.log(`${msg}`))
 
 }
 
