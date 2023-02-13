@@ -44,3 +44,12 @@ create1stBlog()
 .then(deleteBlog).then(blog => console.log(blog.title))
 .then(deleteBlog)
 .catch(err => console.log(err))
+
+//Another Method
+
+// create1stBlog()
+// .then( ()=>{return create2ndBlog()})
+// .then( ()=>{return deleteBlog().then(blog2 => console.log(blog2.title)) })
+// .then( ()=>{return deleteBlog().then(blog1 => console.log(blog1.title)) })
+// .then( ()=>{return deleteBlog()})
+// .catch(err => console.log(err))
