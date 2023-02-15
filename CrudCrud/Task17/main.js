@@ -4,9 +4,11 @@ const emailInput = document.querySelector('#email');
 const msg = document.querySelector('.msg');
 const userList = document.querySelector('#users');
 
+let editUserId = null;
+
 // when window is reloaded
 window.addEventListener("DOMContentLoaded", ()=> {
-  axios.get("https://crudcrud.com/api/a377e15694c6483495e34f6a9228c240/appointmentData")
+  axios.get("https://crudcrud.com/api/b69367bf2f514d39967d87440784c380/appointmentData")
     .then((response) => {
       console.log(response)
       response.data.forEach(user => showOnScreen(user))
@@ -15,7 +17,7 @@ window.addEventListener("DOMContentLoaded", ()=> {
 })
 
 function remove(userId) {
-  axios.delete(`https://crudcrud.com/api/a377e15694c6483495e34f6a9228c240/appointmentData/${userId}`)
+  axios.delete(`https://crudcrud.com/api/b69367bf2f514d39967d87440784c380/appointmentData/${userId}`)
     .then(() => {
       const userLi = document.querySelector(`#${userId}`)
       if (userLi) {
@@ -26,11 +28,14 @@ function remove(userId) {
 }
 
 function editUserDetails(userId) {
-  axios.get(`https://crudcrud.com/api/a377e15694c6483495e34f6a9228c240/appointmentData/${userId}`)
+  axios.get(`https://crudcrud.com/api/b69367bf2f514d39967d87440784c380/appointmentData/${userId}`)
     .then((response)=> {
       const user = response.data;
       nameInput.value = user.name;
       emailInput.value = user.email;
+      editUserId = user._id;
+      myForm.removeEventListener('submit', onSubmit);
+      myForm.addEventListener('submit', onEdit);
     })
     .catch(err => console.log(err))
 }
@@ -66,7 +71,7 @@ function onSubmit(e) {
       email : emailInput.value
     };
 
-    axios.post('https://crudcrud.com/api/a377e15694c6483495e34f6a9228c240/appointmentData', user)
+    axios.post('https://crudcrud.com/api/b69367bf2f514d39967d87440784c380/appointmentData', user)
       .then((response) => {
         console.log(response.data)
         showOnScreen(response.data)
@@ -79,4 +84,28 @@ function onSubmit(e) {
     nameInput.value = '';
     emailInput.value = '';
   }
+}
+
+function onEdit(e) {
+  e.preventDefault();
+
+  if(nameInput.value === '' || emailInput.value === '') {
+    msg.classList.add('error');
+    msg.innerHTML = 'Please enter all fields';
+
+    // Remove error after 3 seconds
+    setTimeout(() => msg.remove(), 3000);
+  } else {
+    const user = {
+      name : nameInput.value,
+      email : emailInput.value
+    };
+
+    axios.put(`https://crudcrud.com/api/b69367bf2f514d39967d87440784c380/appointmentData/${editUserId}`, user)
+      .then((response) => {
+        response.data.forEach(user => showOnScreen(user))
+        })
+        .catch((err) => {console.error(err)})
+
+      }
 }
