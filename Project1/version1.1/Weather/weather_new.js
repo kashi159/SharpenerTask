@@ -4,7 +4,7 @@ const searchForm = document.getElementById('search-form');
 const cityInput = document.getElementById('city-input');
 const weatherContainer = document.getElementById('weather-container');
 const errorContainer = document.getElementById('error-container');
-// document.body.style.backgroundImage = fetch('https://api.pexels.com/v1/search?query=nature&per_page=1')
+
 fetch('https://api.pexels.com/v1/search?query=clear&per_page=1', { headers: { Authorization: pexelsApiKey } })
         .then(response => response.json())
         .then(data => {
