@@ -6,12 +6,33 @@ const emailInput = document.querySelector('#email');
 const msg = document.querySelector('.msg');
 const userList = document.querySelector('#users');
 
+// when window is reloaded
+window.addEventListener("DOMContentLoaded", ()=> {
+  axios.get("https://crudcrud.com/api/19c3766cbff0478d98608e03cf5d21ef/appointmentData")
+  .then((response) => {
+      console.log(response)
+    for(var i = 0; i< response.data.length; i++){
+      // userList.innerHTML= JSON.stringify(response.data[i])
+      showOnScreen(response.data[i])
+    }
+  })
+  .catch((err) => {console.error(err)})
+})
+
+// Show User Detail on Screen
+function showOnScreen(user){
+    
+  userList.innerHTML += `<li>name: ${user.name} email: ${user.email}</li><button class="btn btn-danger btn-sm float-right delete">DELETE</button> <button class="btn btn-edit btn-sm float-right edit">EDIT</button> <br>` 
+
+ 
+}
 
 
 // Listen for form submit
 myForm.addEventListener('submit', onSubmit);
 
 function onSubmit(e) {
+
   e.preventDefault();
   
   if(nameInput.value === '' || emailInput.value === '') {
@@ -38,7 +59,7 @@ function onSubmit(e) {
     // localStorage.setItem(emailInput.value, userStringified);
     // Making a network Call
 
-    axios.post('https://crudcrud.com/api/ea04f1f649764f24905d39a99c1d76fa/appointmentData',user)
+    axios.post('https://crudcrud.com/api/19c3766cbff0478d98608e03cf5d21ef/appointmentData',user)
     .then((response) => {
       console.log(response)
     }).catch((err) => {
@@ -92,6 +113,7 @@ function onSubmit(e) {
       }
     }
     
+   
 }
 
 
