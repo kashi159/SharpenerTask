@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
     <style> 
-     body{
+     body {
         background-repeat: no-repeat;
         background-size: cover;
-     }
+        font-family: Arial, sans-serif;
+        color: greenyellow;
+      }
+
+      #search-form {
+        margin-bottom: 20px;
+      }
+
+      #weather-container, #error-container {
+        text-align: center;
+      }
+
+      #weather-container img {
+        vertical-align: middle;
+      }
     </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +27,12 @@
     <title>Weather || Darbhanga</title>
 </head>
 <body>
+    <form id="search-form">
+        <label for="city-input">Enter a city name:</label>
+        <input type="text" id="city-input" name="city">
+        <button type="submit">Search</button>
+    </form>
+
     <div id="error-container"></div>
     <div id="weather-container"></div>
     <script src="weather_new.js"></script>
