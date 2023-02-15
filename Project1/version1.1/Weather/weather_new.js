@@ -4,6 +4,7 @@ const searchForm = document.getElementById('search-form');
 const cityInput = document.getElementById('city-input');
 const weatherContainer = document.getElementById('weather-container');
 const errorContainer = document.getElementById('error-container');
+const title = document.getElementById('title');
 
 window.addEventListener("DOMContentLoaded", ()=> {
   fetch('https://api.pexels.com/v1/search?query=clear&per_page=1', { headers: { Authorization: pexelsApiKey } })
@@ -58,6 +59,7 @@ searchForm.addEventListener('submit', e => {
             <p>Wind speed: ${windSpeed} m/s</p>
             <img src="${weatherIcon}" alt="${weatherDescription}">
           `;
+          title.innerHTML = `Weather | ${city}`
       })
       .catch(error => {
         console.error(error);
