@@ -5,7 +5,8 @@ const cityInput = document.getElementById('city-input');
 const weatherContainer = document.getElementById('weather-container');
 const errorContainer = document.getElementById('error-container');
 
-fetch('https://api.pexels.com/v1/search?query=clear&per_page=1', { headers: { Authorization: pexelsApiKey } })
+window.addEventListener("DOMContentLoaded", ()=> {
+  fetch('https://api.pexels.com/v1/search?query=clear&per_page=1', { headers: { Authorization: pexelsApiKey } })
         .then(response => response.json())
         .then(data => {
           const backgroundImage = data.photos[0].src.large;
@@ -13,6 +14,8 @@ fetch('https://api.pexels.com/v1/search?query=clear&per_page=1', { headers: { Au
           // Set background image
           document.body.style.backgroundImage = `url(${backgroundImage})`;
         })
+})
+
 
 searchForm.addEventListener('submit', e => {
   e.preventDefault();
