@@ -4,6 +4,15 @@ const searchForm = document.getElementById('search-form');
 const cityInput = document.getElementById('city-input');
 const weatherContainer = document.getElementById('weather-container');
 const errorContainer = document.getElementById('error-container');
+// document.body.style.backgroundImage = fetch('https://api.pexels.com/v1/search?query=nature&per_page=1')
+fetch('https://api.pexels.com/v1/search?query=clear&per_page=1', { headers: { Authorization: pexelsApiKey } })
+        .then(response => response.json())
+        .then(data => {
+          const backgroundImage = data.photos[0].src.large;
+
+          // Set background image
+          document.body.style.backgroundImage = `url(${backgroundImage})`;
+        })
 
 searchForm.addEventListener('submit', e => {
   e.preventDefault();
@@ -51,11 +60,17 @@ searchForm.addEventListener('submit', e => {
         console.error(error);
         const errorContainer = document.getElementById('error-container');
         errorContainer.innerHTML = '<p>Failed to fetch background image. Please try again later.</p>';
+        setTimeout(()=>{
+          errorContainer.innerHTML=""
+        },3000)
       });
   })
   .catch(error => {
     console.error(error);
     const errorContainer = document.getElementById('error-container');
     errorContainer.innerHTML = '<p>Failed to fetch weather data. Please try again later.</p>';
+    setTimeout(()=>{
+      errorContainer.innerHTML=""
+    },3000)
   })
 })
