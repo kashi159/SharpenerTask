@@ -54,7 +54,7 @@ searchForm.addEventListener('submit', e => {
       const windSpeed = data.wind.speed;
 
       // Search for background image on Pexels based on weather conditions
-      const weatherKeywords = ['clear', 'cloud', 'rain', 'snow', 'smoke', 'mist', 'haze'];
+      const weatherKeywords = ['clear', 'cloud', 'rain', 'snow', 'smoke', 'mist', 'haze', 'sunny'];
       let query = 'nature'; // Default query
       for (let i = 0; i < weatherKeywords.length; i++) {
         if (weatherDescription.includes(weatherKeywords[i])) {
