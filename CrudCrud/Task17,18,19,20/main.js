@@ -8,7 +8,7 @@ let editUserId = null;
 
 // when window is reloaded
 window.addEventListener("DOMContentLoaded", ()=> {
-  axios.get("https://crudcrud.com/api/8562811419c64e069dac78385d88a336/appointmentData")
+  axios.get("https://crudcrud.com/api/3d1ab59567db465ea23fa3d597402f4e/appointmentData")
     .then((response) => {
       console.log(response)
       response.data.forEach(user => showOnScreen(user))
@@ -17,7 +17,7 @@ window.addEventListener("DOMContentLoaded", ()=> {
 })
 
 function remove(userId) {
-  axios.delete(`https://crudcrud.com/api/8562811419c64e069dac78385d88a336/appointmentData/${userId}`)
+  axios.delete(`https://crudcrud.com/api/3d1ab59567db465ea23fa3d597402f4e/appointmentData/${userId}`)
     .then(() => {
       // const userLi = document.querySelector(`#${userId}`)
       if (userId) {
@@ -28,7 +28,7 @@ function remove(userId) {
 }
 
 function editUserDetails(userId) {
-  axios.get(`https://crudcrud.com/api/8562811419c64e069dac78385d88a336/appointmentData/${userId}`)
+  axios.get(`https://crudcrud.com/api/3d1ab59567db465ea23fa3d597402f4e/appointmentData/${userId}`)
     .then((response)=> {
       const user = response.data;
       nameInput.value = user.name;
@@ -44,8 +44,8 @@ function editUserDetails(userId) {
 function showOnScreen(user){
   const childHTML = `
     <li id=${user._id}>
-      name: ${user.name}<br>
-      email: ${user.email}
+      Name: ${user.name}<br>
+      Email: ${user.email}
       <button onclick="remove('${user._id}')">DELETE</button>
       <button onclick="editUserDetails('${user._id}')">EDIT</button>
     </li>
@@ -71,7 +71,7 @@ function onSubmit(e) {
       email : emailInput.value
     };
 
-    axios.post('https://crudcrud.com/api/8562811419c64e069dac78385d88a336/appointmentData', user)
+    axios.post('https://crudcrud.com/api/3d1ab59567db465ea23fa3d597402f4e/appointmentData', user)
       .then((response) => {
         console.log(response.data)
         showOnScreen(response.data)
@@ -102,7 +102,7 @@ function onEdit(e) {
       email : emailInput.value
     };
 
-    axios.put(`https://crudcrud.com/api/8562811419c64e069dac78385d88a336/appointmentData/${editUserId}`, user)
+    axios.put(`https://crudcrud.com/api/3d1ab59567db465ea23fa3d597402f4e/appointmentData/${editUserId}`, user)
       .then((response) => {
         console.log(response)
         myForm.addEventListener('submit', onSubmit);
