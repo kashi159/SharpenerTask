@@ -22,6 +22,7 @@ window.addEventListener("DOMContentLoaded", ()=> {
         .then(response => response.json())
       .then(data => {
       const temperature = data.main.temp - 273.15; // Convert from Kelvin to Celsius
+      const feelLike = data.main.feels_like - 273.15;
       const weatherDescription = data.weather[0].description;
       const weatherIcon = `https://openweathermap.org/img/w/${data.weather[0].icon}.png`;
       const humidity = data.main.humidity;
@@ -29,6 +30,7 @@ window.addEventListener("DOMContentLoaded", ()=> {
        weatherContainer.innerHTML = `
             <h2>Current weather in ${city}</h2>
             <p>Temperature: ${temperature.toFixed(1)} &#8451;</p>
+            <p>Feels Like: ${feelLike.toFixed(1)} &#8451;</p>
             <p>Weather: ${weatherDescription}</p>
             <p>Humidity: ${humidity}%</p>
             <p>Wind speed: ${windSpeed} m/s</p>
@@ -48,6 +50,7 @@ searchForm.addEventListener('submit', e => {
     .then(response => response.json())
     .then(data => {
       const temperature = data.main.temp - 273.15; // Convert from Kelvin to Celsius
+      const feelLike = data.main.feels_like - 273.15;
       const weatherDescription = data.weather[0].description;
       const weatherIcon = `https://openweathermap.org/img/w/${data.weather[0].icon}.png`;
       const humidity = data.main.humidity;
@@ -75,6 +78,7 @@ searchForm.addEventListener('submit', e => {
           weatherContainer.innerHTML = `
             <h2>Current weather in ${city}</h2>
             <p>Temperature: ${temperature.toFixed(1)} &#8451;</p>
+            <p>Feels Like: ${feelLike.toFixed(1)} &#8451;</p>
             <p>Weather: ${weatherDescription}</p>
             <p>Humidity: ${humidity}%</p>
             <p>Wind speed: ${windSpeed} m/s</p>
