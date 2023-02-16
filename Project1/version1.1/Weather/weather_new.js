@@ -15,6 +15,27 @@ window.addEventListener("DOMContentLoaded", ()=> {
           // Set background image
           document.body.style.backgroundImage = `url(${backgroundImage})`;
         })
+
+        const city= "Darbhanga"
+       
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
+        .then(response => response.json())
+      .then(data => {
+      const temperature = data.main.temp - 273.15; // Convert from Kelvin to Celsius
+      const weatherDescription = data.weather[0].description;
+      const weatherIcon = `https://openweathermap.org/img/w/${data.weather[0].icon}.png`;
+      const humidity = data.main.humidity;
+      const windSpeed = data.wind.speed;
+       weatherContainer.innerHTML = `
+            <h2>Current weather in ${city}</h2>
+            <p>Temperature: ${temperature.toFixed(1)} &#8451;</p>
+            <p>Weather: ${weatherDescription}</p>
+            <p>Humidity: ${humidity}%</p>
+            <p>Wind speed: ${windSpeed} m/s</p>
+            <img src="${weatherIcon}" alt="${weatherDescription}">
+          `;
+          title.innerHTML = `Weather | ${city}`
+      })
 })
 
 
