@@ -19,7 +19,10 @@ window.addEventListener("DOMContentLoaded", ()=> {
             // console.log(order.table)
         })
       })
-      .catch((err) => {console.error(err)})
+      .catch((err) => {
+        msg.innerHTML=err;
+        setTimeout(() => msg.remove(), 3000);
+      })
   })
 
 function onSubmit(e){
@@ -38,7 +41,6 @@ function onSubmit(e){
         .then((response) => {
             // console.log(response.data)
             showOnScreen(response.data)
-    
           })
     }
     // clear fields
