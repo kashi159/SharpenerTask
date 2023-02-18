@@ -1,0 +1,52 @@
+body {
+    background-color: blanchedalmond;
+}
+h1 {
+    text-align: center;
+    background-color: coral;
+    padding: auto;
+    margin: auto;
+    max-width: fit-content;
+}
+button {
+    float: right;
+}
+.expense {
+    margin-top: 10px;
+}
+.row {
+    background-color: aqua;
+    margin: auto;
+    padding: auto;
+    
+}
+
+.error {
+    background: orangered;
+    color: #fff;
+    padding: 5px;
+    margin: 5px;
+  }
+
+.card-title {
+    font-size: 18px;
+}
+
+.form {
+    margin-top: 10px;
+}
+
+#my-form {
+    margin-top: 10px;
+}
+
+/* .btn {
+    background-color: rebeccapurple;
+    color
+    border: 2px;
+    border-color: black;
+} */
+
+.expense-list {
+    margin-top: 25px;
+}
