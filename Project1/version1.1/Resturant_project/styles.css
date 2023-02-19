@@ -13,6 +13,9 @@ body {
     right: 0;
     /* display: none; */
   }
+  button {
+    float: right;
+  }
   
   /* This box class is purely used for explaining how the bootstrap grid system works. */
   .box {
