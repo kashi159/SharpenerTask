@@ -11,7 +11,7 @@ const msg = document.querySelector('.msg');
 myForm.addEventListener('submit', onSubmit)
 
 window.addEventListener("DOMContentLoaded", ()=> {
-    axios.get('https://crudcrud.com/api/a4ad6238366944c29f802780f50f5750/orders')
+    axios.get('https://crudcrud.com/api/3e73a922d7af45c9aadfc745cd507d53/orders')
       .then((response) => {
         // console.log(response)
         response.data.forEach(order => {
@@ -34,7 +34,7 @@ function onSubmit(e){
             dish : dish.value
           };
       
-        axios.post('https://crudcrud.com/api/a4ad6238366944c29f802780f50f5750/orders', order)
+        axios.post('https://crudcrud.com/api/3e73a922d7af45c9aadfc745cd507d53/orders', order)
         .then((response) => {
             // console.log(response.data)
             showOnScreen(response.data)
@@ -71,13 +71,12 @@ function showOnScreen(order){
   }
 
   function remove(orderId) {
-    axios
-      .delete(`https://crudcrud.com/api/a4ad6238366944c29f802780f50f5750/orders/${orderId}`)
-      .then(() => {
-        const orderLi = document.getElementById(orderId);
-        if (orderLi) {
-          orderLi.remove();
-        }
-      })
-      .catch((err) => console.log(err));
+    axios.delete(`https://crudcrud.com/api/3e73a922d7af45c9aadfc745cd507d53/orders/${orderId}`)
+         .then(() => {
+            const orderLi = document.getElementById(orderId);
+            if (orderLi) {
+              orderLi.remove();
+            }
+          })
+          .catch((err) => console.log(err));
   }

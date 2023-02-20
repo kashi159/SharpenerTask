@@ -5,7 +5,7 @@ async function Movie() {
     try{
    const ticket = await new Promise((resolve, reject)=>{
             setTimeout(()=>{
-                reject('ticket')
+                resolve('ticket')
             },3000)
         })
         console.log(ticket);
