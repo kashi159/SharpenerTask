@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/contact.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>Contact Us</title>
+    <style>
+        body {
+    background-color:#dbb8b8;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+h3 {
+    color: rgb(12, 14, 15);
+    font-family: sans-serif;
+    text-align: center;
+}
+h6 {
+    color: rgb(12,14,15);
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+form{
+    color: rgb(50 16 54);
+    border: 2px saddlebrown;
+    padding: 30px;
+    height: 400px;
+}
+input{  
+    width: 600px;
+    height: 20px;
+    border-radius: 1mm;
+}
+fieldset{
+    background-color: grey;
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 550px;
+    margin-left: 300px;
+    border-radius: 5mm;
+    height: 390px;
+}
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <nav class="main-header__nav">
+            <ul class="main-header__item-list">
+                <li class="main-header__item"><a href="/shop/">Shop</a></li>
+                <li class="main-header__item"><a href="/admin/add-product/">Add Product</a></li>
+                <li class="main-header__item"><a class="active" href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <form class="product-form" action="/contact" method="POST">
+            <div class="form-control">
+                <fieldset>
+                    <h3>Book a Call</h3>
+            <h6>Book a call slot and our representative will call you within 1hr of selected time.</h6>
+            <hr>
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name"><br><br>
+                <label for="email">Email:</label><br>
+                <input type="text" id="email" name="email"><br><br>
+                <button type="submit">Submit</button>
+        </form>
+    </main>
+</body>
+</html>
