@@ -15,7 +15,7 @@ router.get('/contact', (req, res, next)=> {
 // /admin/add-product => POST
 router.post('/contact',(req, res, next)=>{
     console.log(req.body);
-    res.redirect('/success/');
+    res.redirect('/success');
 });
 
 module.exports = router;
