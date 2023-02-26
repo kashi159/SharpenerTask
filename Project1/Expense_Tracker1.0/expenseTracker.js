@@ -19,57 +19,57 @@ function onSubmit(e) {
         setTimeout(() => msg.remove(), 3000);
     }else{
          const li = document.createElement('li');
-    const textNode= `${amount.value}-  ${description.value}-  ${category.value}`
-    li.appendChild(document.createTextNode(textNode));
-    expense.appendChild(li);
+         const textNode= `${amount.value}-  ${description.value}-  ${category.value}`
+         li.appendChild(document.createTextNode(textNode));
+         expense.appendChild(li);
 
-     // Save user input in local storage //
-     var usereExpense = {
-        amount : amount.value,
-        description : description.value,
-        category : category.value
-    };
-    let userStringified= JSON.stringify(usereExpense);
-    localStorage.setItem(description.value, userStringified);
+         // Save user input in local storage //
+         var usereExpense = {
+         amount : amount.value,
+         description : description.value,
+         category : category.value
+         };
+         let userStringified= JSON.stringify(usereExpense);
+         localStorage.setItem(description.value, userStringified);
 
-    //Adding delete button//
-    var deleteBtn = document.createElement('button');
+         //Adding delete button//
+         var deleteBtn = document.createElement('button');
 
-    //  //Add classes to delete btn
-     deleteBtn.className='btn btn-danger btn-sm float-right delete';
-     // Append text node
-     deleteBtn.appendChild(document.createTextNode('DELETE'));
-     // Append delete btn to li
-     li.appendChild(deleteBtn);
-     expense.appendChild(li);
+         //  //Add classes to delete btn
+         deleteBtn.className='btn btn-danger btn-sm float-right delete';
+         // Append text node
+         deleteBtn.appendChild(document.createTextNode('DELETE'));
+         // Append delete btn to li
+         li.appendChild(deleteBtn);
+         expense.appendChild(li);
 
-     // Add Edit Button//
-     var editBtn= document.createElement('button');
-     editBtn.className='btn btn-edit btn-sm float-right edit';
-     editBtn.appendChild(document.createTextNode('EDIT'));
-     li.appendChild(editBtn);
-     expense.appendChild(li);
+         // Add Edit Button//
+         var editBtn= document.createElement('button');
+         editBtn.className='btn btn-edit btn-sm float-right edit';
+         editBtn.appendChild(document.createTextNode('EDIT'));
+         li.appendChild(editBtn);
+         expense.appendChild(li);
+ 
+         //clear fields
+         amount.value = '';
+         description.value = '';
+        }
+     //Remove item
+     expense.addEventListener('click', removeItem);
 
-    //clear fields
-    amount.value = '';
-    description.value = '';
-    }
-    //Remove item
-    expense.addEventListener('click', removeItem);
-
-    function removeItem(e){
+     function removeItem(e){
         if(e.target.classList.contains('delete')){
-        if(confirm('Are You Sure?')){
+         if(confirm('Are You Sure?')){
             var li= e.target.parentElement;
             expense.removeChild(li);
             localStorage.removeItem(usereExpense.description)
+          } 
+         }
         }
-        }
-    }
-   //Edit item//
-    expense.addEventListener('click', editItem);
-
-    function editItem(e){
+     //Edit item//
+     expense.addEventListener('click', editItem);
+  
+     function editItem(e){
       if(e.target.classList.contains('edit')){
         var li=e.target.parentElement;
         expense.removeChild(li);
