@@ -7,24 +7,26 @@ const userList = document.querySelector('#users');
 let editUserId = null;
 
 // when window is reloaded
-window.addEventListener("DOMContentLoaded", ()=> {
-  axios.get("http://localhost:4000/")
-    .then((response) => {
+window.addEventListener("DOMContentLoaded", async()=> {
+  try{
+    const response = await axios.get("http://localhost:4000/")
       // console.log(response)
-      response.data.forEach(user => showOnScreen(user))
-    })
-    .catch((err) => {console.error(err)})
+    response.data.forEach(user => showOnScreen(user))
+  } catch (err){
+    console.error(err)
+  }
 })
 
-function remove(userId) {
-  axios.delete(`http://localhost:4000/delete/${userId}`)
-    .then(() => {
+async function remove(userId) {
+  try{
+   await axios.delete(`http://localhost:4000/delete/${userId}`)
       // const userLi = document.querySelector(`#${userId}`)
       if (userId) {
         userList.remove(userId)
       }
-    })
-    .catch(err => console.log(err))
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 // function editUserDetails(userId) {
@@ -56,34 +58,31 @@ function showOnScreen(user){
 // Listen for form submit
 myForm.addEventListener('submit', onSubmit);
 
-function onSubmit(e) {
+async function onSubmit(e) {
   e.preventDefault();
+  try{
 
-  if(nameInput.value === '' || emailInput.value === '') {
-    msg.classList.add('error');
-    msg.innerHTML = 'Please enter all fields';
-
-    // Remove error after 3 seconds
-    setTimeout(() => msg.remove(), 3000);
-  } else {
-    const user = {
-      name : nameInput.value,
-      email : emailInput.value
-    };
-
-    axios.post('http://localhost:4000/user', user)
-      .then((response) => {
-        // console.log(response)
-        showOnScreen(response.data)
-
-      })
-      .catch((err) => {
-        console.error(err)
-      });
-
-    // Clear fields
-    nameInput.value = '';
-    emailInput.value = '';
+    if(nameInput.value === '' || emailInput.value === '') {
+      msg.classList.add('error');
+      msg.innerHTML = 'Please enter all fields';
+  
+      // Remove error after 3 seconds
+      setTimeout(() => msg.remove(), 3000);
+    } else {
+      const user = {
+        name : nameInput.value,
+        email : emailInput.value
+      };
+  
+      const response = await axios.post('http://localhost:4000/user', user)
+          // console.log(response)
+          showOnScreen(response.data)
+      // Clear fields
+      nameInput.value = '';
+      emailInput.value = '';
+    }
+  } catch (err) {
+    console.error(err)
   }
 }
 
