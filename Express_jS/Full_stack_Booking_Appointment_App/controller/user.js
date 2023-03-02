@@ -20,7 +20,7 @@ exports.postUser = (req, res, next) => {
   .then(result =>{
     // console.log(result);
     // res.redirect('/');
-    return result;
+    return res.json(result);
   })
   .catch(err => console.log(err))
 }
@@ -28,15 +28,13 @@ exports.postUser = (req, res, next) => {
 exports.postDeleteUser= (req, res, next) => {
     // console.log(req)
     const prodId = req.params.id;
-    console.log(prodId)
+    // console.log(prodId)
     User.findByPk(prodId)
     .then(product =>{
      return product.destroy();
   })
   .then(result => {
-    // console.log("result");
-    // res.redirect('/')
-    return result;
+    return res.json(result);
   })
   .catch(err => console.log(err));
 }

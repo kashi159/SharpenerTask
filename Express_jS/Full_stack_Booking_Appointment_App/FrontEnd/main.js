@@ -10,20 +10,19 @@ let editUserId = null;
 window.addEventListener("DOMContentLoaded", ()=> {
   axios.get("http://localhost:4000/")
     .then((response) => {
-      console.log(response)
+      // console.log(response)
       response.data.forEach(user => showOnScreen(user))
     })
     .catch((err) => {console.error(err)})
 })
 
 function remove(userId) {
-  axios.post(`http://localhost:4000/delete/${userId}`)
+  axios.delete(`http://localhost:4000/delete/${userId}`)
     .then(() => {
       // const userLi = document.querySelector(`#${userId}`)
       if (userId) {
         userList.remove(userId)
       }
-      showOnScreen()
     })
     .catch(err => console.log(err))
 }
@@ -47,7 +46,7 @@ function showOnScreen(user){
     <li id=${user.id}>
       Name: ${user.name}<br>
       Email: ${user.email}
-      <button onclick="remove('${user.id}')">DELETE</button>
+      <button onclick="remove('${user.id}')">DELETE</button></form>
       <button onclick="editUserDetails('${user.id}')">EDIT</button>
     </li>
   `
@@ -74,7 +73,7 @@ function onSubmit(e) {
 
     axios.post('http://localhost:4000/user', user)
       .then((response) => {
-        console.log(response.data)
+        // console.log(response)
         showOnScreen(response.data)
 
       })
