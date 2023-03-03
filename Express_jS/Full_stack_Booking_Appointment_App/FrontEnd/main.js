@@ -46,11 +46,11 @@ function editUserDetails(userId) {
 async function showOnScreen(user){
   try{
     const childHTML = `
-    <li id=${user.id}>
-      Name: ${user.name}<br>
-      Email: ${user.email}
-      <button onclick="remove('${user.id}')">DELETE</button></form>
-      <button onclick="editUserDetails('${user.id}')">EDIT</button>
+    <li id=${await user.id}>
+      Name: ${await user.name}<br>
+      Email: ${await user.email}
+      <button onclick="remove('${await user.id}')">DELETE</button></form>
+      <button onclick="editUserDetails('${await user.id}')">EDIT</button>
     </li>
   `
   userList.innerHTML += childHTML
@@ -64,7 +64,7 @@ async function showOnScreen(user){
 myForm.addEventListener('submit', onSubmit);
 
 async function onSubmit(e) {
-  e.preventDefault();
+  // e.preventDefault();
   try{
 
     if(nameInput.value === '' || emailInput.value === '') {
@@ -92,7 +92,7 @@ async function onSubmit(e) {
 }
 
 function onEdit(e) {
-  e.preventDefault();
+  // e.preventDefault();
 
   if(nameInput.value === '' || emailInput.value === '') {
     msg.classList.add('error');
