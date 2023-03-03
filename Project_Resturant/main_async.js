@@ -12,7 +12,7 @@ myForm.addEventListener('submit', onSubmit);
 
 window.addEventListener("DOMContentLoaded", async () => {
   try {
-    const response = await axios.get('https://crudcrud.com/api/3e73a922d7af45c9aadfc745cd507d53/orders');
+    const response = await axios.get('https://crudcrud.com/api/9952c51675fd4da2986351bb22b1e647/orders');
     response.data.forEach(order => {
       showOnScreen(order);
     });
@@ -35,7 +35,7 @@ async function onSubmit(e) {
         dish: dish.value
       };
 
-      const response = await axios.post('https://crudcrud.com/api/3e73a922d7af45c9aadfc745cd507d53/orders', order);
+      const response = await axios.post('https://crudcrud.com/api/9952c51675fd4da2986351bb22b1e647/orders', order);
       showOnScreen(response.data);
     }
 
@@ -70,7 +70,7 @@ function showOnScreen(order) {
 
 async function remove(orderId) {
   try {
-    await axios.delete(`https://crudcrud.com/api/3e73a922d7af45c9aadfc745cd507d53/orders/${orderId}`);
+    await axios.delete(`https://crudcrud.com/api/9952c51675fd4da2986351bb22b1e647/orders/${orderId}`);
     const orderLi = document.getElementById(orderId);
     if (orderLi) {
       orderLi.remove();
