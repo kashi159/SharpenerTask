@@ -9,6 +9,15 @@ exports.getUsers = (req, res, next) => {
     .catch(err => console.log(err))
 }
 
+exports.getUser = (req, res, next) =>{
+  const prodId = req.params.id;
+  User.findByPk(prodId)
+  .then(user =>{
+    res.json(user)
+  })
+  .catch(err => console.log(err))
+}
+
 exports.postUser = (req, res, next) => {
     // console.log(req)
   const name = req.body.name;
@@ -37,4 +46,24 @@ exports.postDeleteUser= (req, res, next) => {
     return res.json(result);
   })
   .catch(err => console.log(err));
+}
+
+exports.postEditUser = (req, res, next) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const prodId = req.params.id;
+  User.findByPk(prodId)
+  .then(product =>{
+      // console.log(product)
+      product.update({
+      name: name,
+      email: email
+    });
+    return product.save()
+  })
+  .then(result => {
+    // console.log(result)
+    return res.json(result);
+  })
+  .catch(err => console.log(err))
 }

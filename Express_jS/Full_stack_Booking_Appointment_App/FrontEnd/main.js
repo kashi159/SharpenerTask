@@ -29,18 +29,18 @@ async function remove(userId) {
   }
 }
 
-// function editUserDetails(userId) {
-//   axios.get(`https://crudcrud.com/api/3d1ab59567db465ea23fa3d597402f4e/appointmentData/${userId}`)
-//     .then((response)=> {
-//       const user = response.data;
-//       nameInput.value = user.name;
-//       emailInput.value = user.email;
-//       editUserId = user._id;
-//       myForm.removeEventListener('submit', onSubmit);
-//       myForm.addEventListener('submit', onEdit);
-//     })
-//     .catch(err => console.log(err))
-// }
+function editUserDetails(userId) {
+  axios.get(`http://localhost:4000/user/${userId}`)
+    .then((response)=> {
+      const user = response.data;
+      nameInput.value = user.name;
+      emailInput.value = user.email;
+      editUserId = user.id;
+      myForm.removeEventListener('submit', onSubmit);
+      myForm.addEventListener('submit', onEdit);
+    })
+    .catch(err => console.log(err))
+}
 
 // Show User Detail on Screen
 function showOnScreen(user){
@@ -86,29 +86,29 @@ async function onSubmit(e) {
   }
 }
 
-// function onEdit(e) {
-//   e.preventDefault();
+function onEdit(e) {
+  e.preventDefault();
 
-//   if(nameInput.value === '' || emailInput.value === '') {
-//     msg.classList.add('error');
-//     msg.innerHTML = 'Please enter all fields';
+  if(nameInput.value === '' || emailInput.value === '') {
+    msg.classList.add('error');
+    msg.innerHTML = 'Please enter all fields';
 
-//     // Remove error after 3 seconds
-//     setTimeout(() => msg.remove(), 3000);
-//   } else {
-//     const user = {
-//       name : nameInput.value,
-//       email : emailInput.value
-//     };
+    // Remove error after 3 seconds
+    setTimeout(() => msg.remove(), 3000);
+  } else {
+    const user = {
+      name : nameInput.value,
+      email : emailInput.value
+    };
 
-//     axios.put(`https://crudcrud.com/api/3d1ab59567db465ea23fa3d597402f4e/appointmentData/${editUserId}`, user)
-//       .then((response) => {
-//         console.log(response)
-//         myForm.addEventListener('submit', onSubmit);
-//         myForm.removeEventListener('submit', onEdit);
-//         })
-//         .catch((err) => {console.error(err)})
-//         myForm.addEventListener('submit', onSubmit);
-//         myForm.removeEventListener('submit', onEdit);
-//       }
-// }
+    axios.put(`http://localhost:4000/edit/${editUserId}`, user)
+      .then((response) => {
+        console.log(response)
+        myForm.addEventListener('submit', onSubmit);
+        myForm.removeEventListener('submit', onEdit);
+        })
+        .catch((err) => {console.error(err)})
+        myForm.addEventListener('submit', onSubmit);
+        myForm.removeEventListener('submit', onEdit);
+      }
+}
