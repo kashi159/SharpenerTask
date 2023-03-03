@@ -43,8 +43,9 @@ function editUserDetails(userId) {
 }
 
 // Show User Detail on Screen
-function showOnScreen(user){
-  const childHTML = `
+async function showOnScreen(user){
+  try{
+    const childHTML = `
     <li id=${user.id}>
       Name: ${user.name}<br>
       Email: ${user.email}
@@ -53,7 +54,11 @@ function showOnScreen(user){
     </li>
   `
   userList.innerHTML += childHTML
+  } catch (err) {
+    console.log(err)
+  }
 }
+  
 
 // Listen for form submit
 myForm.addEventListener('submit', onSubmit);
@@ -104,6 +109,7 @@ function onEdit(e) {
     axios.put(`http://localhost:4000/edit/${editUserId}`, user)
       .then((response) => {
         console.log(response)
+        showOnScreen(response.data)
         myForm.addEventListener('submit', onSubmit);
         myForm.removeEventListener('submit', onEdit);
         })
