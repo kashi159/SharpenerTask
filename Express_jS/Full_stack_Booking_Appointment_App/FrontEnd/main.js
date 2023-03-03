@@ -29,17 +29,18 @@ async function remove(userId) {
   }
 }
 
-function editUserDetails(userId) {
-  axios.get(`http://localhost:4000/user/${userId}`)
-    .then((response)=> {
+async function editUserDetails(userId) {
+  try{
+      const response = await axios.get(`http://localhost:4000/user/${userId}`)
       const user = response.data;
       nameInput.value = user.name;
       emailInput.value = user.email;
       editUserId = user.id;
       myForm.removeEventListener('submit', onSubmit);
       myForm.addEventListener('submit', onEdit);
-    })
-    .catch(err => console.log(err))
+    }catch(err){
+    console.log(err)
+  }
 }
 
 // Show User Detail on Screen
@@ -91,9 +92,8 @@ async function onSubmit(e) {
   }
 }
 
-function onEdit(e) {
+async function onEdit(e) {
   // e.preventDefault();
-
   if(nameInput.value === '' || emailInput.value === '') {
     msg.classList.add('error');
     msg.innerHTML = 'Please enter all fields';
@@ -105,16 +105,14 @@ function onEdit(e) {
       name : nameInput.value,
       email : emailInput.value
     };
-
-    axios.put(`http://localhost:4000/edit/${editUserId}`, user)
-      .then((response) => {
-        console.log(response)
-        showOnScreen(response.data)
-        myForm.addEventListener('submit', onSubmit);
-        myForm.removeEventListener('submit', onEdit);
-        })
-        .catch((err) => {console.error(err)})
-        myForm.addEventListener('submit', onSubmit);
-        myForm.removeEventListener('submit', onEdit);
-      }
+  try{
+      const response = await axios.put(`http://localhost:4000/edit/${editUserId}`, user)
+          console.log(response)
+          showOnScreen(response.data)
+          myForm.addEventListener('submit', onSubmit);
+          myForm.removeEventListener('submit', onEdit);   
+  }catch (err){
+      console.log(err);
+    }
+  }
 }
