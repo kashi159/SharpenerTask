@@ -9,7 +9,7 @@ let id;
 function showOnScreen(user) {
     const li = document.createElement('li');
     li.setAttribute('id', user.id);
-    const textNode= `₹${user.amount}-  ${user.description}-  ${user.category}`
+    const textNode= `₹ ${user.amount}-  ${user.description}-  ${user.category}`
     li.appendChild(document.createTextNode(textNode));
     expense.appendChild(li);
 
