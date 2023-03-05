@@ -95,7 +95,7 @@ async function onSubmit(e) {
                 id = li.id;
                 const response = await axios.get(`http://localhost:8080/edit/${id}`);
                 console.log(response)
-                expense.replaceChild(myForm, li);
+                expense.removeChild(li);
                 amount.value = response.data.amount;
                 description.value = response.data.description;
                 category.value = response.data.category
