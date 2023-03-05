@@ -112,7 +112,7 @@ async function onSubmit(e) {
     
 
     async function updateItem(e){
-        e.preventDefault();
+        // e.preventDefault();
         var updatedExpense = {
             amount: amount.value,
             description: description.value,
