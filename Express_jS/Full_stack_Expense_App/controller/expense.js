@@ -46,7 +46,7 @@ exports.getEditUser = (req, res, next) =>{
 }
 
 exports.postEditUser = (req, res, next) =>{
-    console.log(req)
+    // console.log(req)
     const amount = req.body.amount;
     const description = req.body.description;
     const category = req.body.category
