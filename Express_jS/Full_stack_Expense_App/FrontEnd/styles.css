@@ -3,7 +3,7 @@ body {
     background-image: url(/FrontEnd/pexels-oleksandr-pidvalnyi-7459470.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: aqua;
+    /* background-color: aqua; */
   }
   
   body::before {

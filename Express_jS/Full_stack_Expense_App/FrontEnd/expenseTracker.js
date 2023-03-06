@@ -6,6 +6,8 @@ const expense = document.getElementById('collection');
 const msg = document.querySelector('.msg');
 let id;
 
+
+
 function showOnScreen(user) {
     const li = document.createElement('li');
     li.setAttribute('id', user.id);
@@ -29,11 +31,30 @@ function showOnScreen(user) {
     expense.appendChild(li);
 }
 
+async function showTotalExpense() {
+    let sum = 0;
+   const title =  document.getElementById('expense-title');
+   try{
+   const response = await axios.get("http://localhost:8080/")
+        // console.log(response)
+    response.data.forEach(user => {
+    sum += user.amount;
+    })
+    title.innerText = `Total Expenditure: ${sum}`;
+   } catch (err) {
+    console.log(err)
+   }
+}
+
  window.addEventListener("DOMContentLoaded", async()=> {
     try{
       const response = await axios.get("http://localhost:8080/")
         // console.log(response)
-      response.data.forEach(user => showOnScreen(user))
+      response.data.forEach(user => {
+        showOnScreen(user);
+        showTotalExpense();
+    })
+        
     } catch (err){
       console.error(err)
     }
@@ -59,6 +80,7 @@ async function onSubmit(e) {
     try{
         const response = await axios.post('http://localhost:8080/user', userExpense);
         showOnScreen(response.data);
+        showTotalExpense();
         //clear fields
         amount.value = '';
         description.value = '';
@@ -78,6 +100,7 @@ async function onSubmit(e) {
                 id = li.id;
                 await axios.delete(`http://localhost:8080/delete/${id}`)
                 expense.removeChild(li);
+                showTotalExpense();
             }
             }
     } catch (err){
@@ -124,6 +147,7 @@ async function onSubmit(e) {
             showOnScreen(response.data);
             myForm.removeEventListener('submit', updateItem);
             myForm.addEventListener('submit', onSubmit);
+            showTotalExpense();
             window()
         } catch (err) {
             console.log(err);
