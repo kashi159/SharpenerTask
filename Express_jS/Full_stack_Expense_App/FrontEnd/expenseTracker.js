@@ -52,9 +52,8 @@ async function showTotalExpense() {
         // console.log(response)
       response.data.forEach(user => {
         showOnScreen(user);
-        showTotalExpense();
     })
-        
+    showTotalExpense();   
     } catch (err){
       console.error(err)
     }
@@ -148,7 +147,7 @@ async function onSubmit(e) {
             myForm.removeEventListener('submit', updateItem);
             myForm.addEventListener('submit', onSubmit);
             showTotalExpense();
-            window()
+            window.location.reload()
         } catch (err) {
             console.log(err);
         }
