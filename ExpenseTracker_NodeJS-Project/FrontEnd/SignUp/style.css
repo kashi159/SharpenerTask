@@ -90,3 +90,10 @@
     padding: 5px;
     margin: 5px;
   }
+
+  .warning {
+    background: yellow;
+    color: blueviolet;
+    padding: 5px;
+    margin: 5px;
+  }

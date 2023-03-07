@@ -15,14 +15,23 @@ async function onSubmit(e){
             msg.textContent = 'Please check your Password'
             setTimeout(() => msg.remove(), 3000);
         }else{
-            const user = {
+            const newuser = {
                 name: nameInput.value,
                 email: emailInput.value,
                 password: passwordInput.value
             }
-            const response = await axios.post('http://localhost:4000/user/signup', user)
+            const response = await axios.post('http://localhost:4000/user/signup', newuser)
+            console.log(response)
+            if(response.status === 200){
+                window.location.href = "../Login/login.html"
+            }else{
+                throw new Error('Failed to login')
+            }
         }
     } catch(err) {
-        console.log(err);
+        // console.log(err)
+        msg.classList.add('warning');
+        msg.textContent = err.response.data.error;
+        setTimeout(() => msg.remove(), 3000);
     } 
 }
