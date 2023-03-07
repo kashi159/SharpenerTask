@@ -7,18 +7,22 @@ const rePasswordInput = document.querySelector('#password2')
 
 myForm.addEventListener('submit', onSubmit);
 
-function onSubmit(e){
+async function onSubmit(e){
     e.preventDefault();
-    if(passwordInput.value !== rePasswordInput.value){
-        msg.classList.add('error');
-        msg.textContent = 'Please check your Password'
-        setTimeout(() => msg.remove(), 3000);
-    }else{
-        const user = {
-            name: nameInput.value,
-            email: emailInput.value,
-            password: passwordInput.value
+    try{
+        if(passwordInput.value !== rePasswordInput.value){
+            msg.classList.add('error');
+            msg.textContent = 'Please check your Password'
+            setTimeout(() => msg.remove(), 3000);
+        }else{
+            const user = {
+                name: nameInput.value,
+                email: emailInput.value,
+                password: passwordInput.value
+            }
+            const response = await axios.post('http://localhost:4000/user/signup', user)
         }
-        console.log(user)
-    }
+    } catch(err) {
+        console.log(err);
+    } 
 }
