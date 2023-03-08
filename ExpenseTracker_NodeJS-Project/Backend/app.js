@@ -8,13 +8,21 @@ app.use(cors());
 
 const signUpRoutes = require('./routes/signup');
 const loginRoutes = require('./routes/login');
+// const expenseRoutes = require('./routes/expense')
+const User = require('./models/user');
+const UserExpense = require('./models/expense')
 
 app.use(bodyParser.json({ extended: false }));
 
 app.use(signUpRoutes);
 app.use(loginRoutes);
+// app.use(expenseRoutes)
+
+User.hasMany(UserExpense, {constraints: true, onDelete: 'CASCADE' })
+UserExpense.belongsTo(User);
 
 sequelize
+// .sync({force: true})
 .sync()
 .then(result =>{
     // console.log(result);

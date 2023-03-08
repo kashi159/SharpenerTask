@@ -16,7 +16,7 @@ async function onSubmit(e){
             console.log(response)
             if(response.status === 200){
                 alert('Login Success!!!')
-                // window.location.href = "../Login/login.html"
+                window.location.href = "../ExpenseTracker/index.html"
             }else{
                 throw new Error('Failed to login')
             }
