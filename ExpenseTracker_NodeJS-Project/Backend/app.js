@@ -6,11 +6,13 @@ var cors = require('cors');
 const app = express();
 app.use(cors());
 
-const signUpRoutes = require('./routes/signup')
+const signUpRoutes = require('./routes/signup');
+const loginRoutes = require('./routes/login');
 
 app.use(bodyParser.json({ extended: false }));
 
 app.use(signUpRoutes);
+app.use(loginRoutes);
 
 sequelize
 .sync()
