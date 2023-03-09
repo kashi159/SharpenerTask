@@ -31,6 +31,19 @@ function showOnScreen(user) {
     editBtn.appendChild(document.createTextNode('EDIT'));
     li.appendChild(editBtn);
     expense.appendChild(li);
+
+}
+
+async function isPremium(){
+    try{
+        const user = await axios.get("http://localhost:4000/user/status", { headers: {"Authorization" : token }})
+        // console.log(user.data[0].isPremiumUser)
+        if(user.data[0].isPremiumUser === true){
+            razorpayBtn.style.display = "none";
+        }
+    }catch(err){
+        console.log(err)
+    }
 }
 
 async function showTotalExpense() {
@@ -54,8 +67,10 @@ async function showTotalExpense() {
         // console.log(response)
         response.data.forEach(user => {
         showOnScreen(user);
+        
     })
     showTotalExpense();   
+    isPremium()
     } catch (err){
       console.error(err)
     }

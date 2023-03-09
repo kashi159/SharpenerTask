@@ -53,3 +53,12 @@ exports.postLoginUser = async (req, res, next) =>{
     }
   };
   
+  exports.getUserStatus = (req, res, next) =>{
+    const userId = req.user.id
+    // console.log(userId)
+    User.findAll({where: {id: userId}})
+    .then(user => {
+        return res.json(user)
+    })
+    .catch(err => console.log(err))
+  }
