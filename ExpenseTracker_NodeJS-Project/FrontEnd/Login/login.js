@@ -2,6 +2,7 @@ const myForm = document.querySelector('.login-form');
 const msg = document.querySelector('.msg')
 const emailInput = document.querySelector('#email');
 const passwordInput = document.querySelector('#password');
+let userId;
 
 myForm.addEventListener('submit', onSubmit);
 
@@ -13,8 +14,9 @@ async function onSubmit(e){
                 password: passwordInput.value
             }
             const response = await axios.post('http://localhost:4000/user/login', user)
-            console.log(response)
+            console.log(response.data)
             if(response.status === 200){
+                localStorage.setItem('token', response.data.token)
                 alert('Login Success!!!')
                 window.location.href = "../ExpenseTracker/index.html"
             }else{
