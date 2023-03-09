@@ -5,6 +5,7 @@ const category = document.getElementById('category');
 const expense = document.getElementById('collection');
 const msg = document.querySelector('.msg');
 const token = localStorage.getItem('token')
+const razorpayBtn = document.getElementById('razorpay')
 
 
 
@@ -40,7 +41,6 @@ async function showTotalExpense() {
         // console.log(response)
     response.data.forEach(user => {
     sum += user.amount;
-    showOnScreen(user);
     })
     title.innerText = `Total Expenditure: ${sum}`;
    } catch (err) {
@@ -50,6 +50,11 @@ async function showTotalExpense() {
 
  window.addEventListener("DOMContentLoaded", async()=> {
     try{
+        const response = await axios.get("http://localhost:4000/user/expense", { headers: {"Authorization" : token }})
+        // console.log(response)
+        response.data.forEach(user => {
+        showOnScreen(user);
+    })
     showTotalExpense();   
     } catch (err){
       console.error(err)
@@ -80,7 +85,6 @@ async function onSubmit(e) {
             }
         });
         showOnScreen(response.data);
-        showTotalExpense();
         //clear fields
         amount.value = '';
         description.value = '';
@@ -152,7 +156,39 @@ async function onSubmit(e) {
         }
     }
 
+    razorpayBtn.addEventListener('click', payment)
 
+    async function payment(e) {
+        try{
+            if(e.target.classList.contains('membership')){
+                const response = await axios.get("http://localhost:4000/purchase/premium", { headers: {"Authorization" : token }})
+                // console.log(response.data.order.id)
+                var options = {
+                    "key": response.data.key_id,
+                    "order_id": response.data.order.id,
+                    "handler": async function (response){
+                        await axios.post("http://localhost:4000/purchase/updatetransactionstatus",{
+                            order_id: options.order_id,
+                            payment_id: response.razorpay_payment_id
+                        }, { headers: {"Authorization" : token }})
+
+                        alert('You are a premium User')
+                        razorpayBtn.style.display = "none"
+                    }
+                }
+            }
+        } catch (err) {
+            console.log(err)
+        };
+        const rzp1 = new Razorpay(options);
+        rzp1.open();
+        e.preventDefault();
+
+        rzp1.on('payment.failed', function (response){
+            console.log(response);
+            alert("Transaction Failed")
+        });
+    }
      
    
 

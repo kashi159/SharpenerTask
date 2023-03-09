@@ -9,17 +9,23 @@ app.use(cors());
 const signUpRoutes = require('./routes/signup');
 const loginRoutes = require('./routes/login');
 const expenseRoutes = require('./routes/expense')
+const purchaseRoutes = require('./routes/purchase')
 const User = require('./models/user');
-const UserExpense = require('./models/expense')
+const UserExpense = require('./models/expense');
+const Order = require('./models/order')
 
 app.use(bodyParser.json({ extended: false }));
 
 app.use(signUpRoutes);
 app.use(loginRoutes);
-app.use(expenseRoutes)
+app.use(expenseRoutes);
+app.use(purchaseRoutes);
 
 User.hasMany(UserExpense);
 UserExpense.belongsTo(User)
+
+User.hasMany(Order);
+Order.belongsTo(User);
 
 sequelize
 // .sync({force: true})
