@@ -1,9 +1,8 @@
 const UserExpense = require('../models/expense');
-const User = require('../models/user');
 
 exports.getUserExpense =  (req, res, next) => {
     const userId = req.user.id
-    console.log(userId)
+    // console.log(userId)
     UserExpense.findAll({where: {userId: userId}})
     .then(expense => {
         return res.json(expense)
@@ -79,7 +78,7 @@ exports.postEditExpense = (req, res, next) => {
             userId: UserId
         }
     }).then(expense =>{
-        console.log(expense)
+        // console.log(expense)
         expense.update({
             amount: amount,
             description: description,

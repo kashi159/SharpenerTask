@@ -40,6 +40,7 @@ async function showTotalExpense() {
         // console.log(response)
     response.data.forEach(user => {
     sum += user.amount;
+    showOnScreen(user);
     })
     title.innerText = `Total Expenditure: ${sum}`;
    } catch (err) {
@@ -48,13 +49,7 @@ async function showTotalExpense() {
 }
 
  window.addEventListener("DOMContentLoaded", async()=> {
-    
     try{
-      const response = await axios.get("http://localhost:4000/user/expense", { headers: {"Authorization" : token }})
-        console.log(response)    
-      response.data.forEach(user => {
-        showOnScreen(user);
-    })
     showTotalExpense();   
     } catch (err){
       console.error(err)
@@ -130,8 +125,7 @@ async function onSubmit(e) {
                 id= response.data.id
                 console.log(id)
                 myForm.removeEventListener('submit', onSubmit);
-                myForm.addEventListener('submit', updateItem);
-                
+                myForm.addEventListener('submit', updateItem);   
             }
         }catch (err){
             console.log(err);
@@ -147,7 +141,6 @@ async function onSubmit(e) {
             category: category.value
             };
         try{
-            // const response = await axios.put(`http://localhost:8080/update/${id}` , updatedExpense);
             const response = await axios.put(`http://localhost:4000/user/edit/${id}`, updatedExpense, { headers: {"Authorization" : token }})
             showOnScreen(response.data);
             myForm.removeEventListener('submit', updateItem);
