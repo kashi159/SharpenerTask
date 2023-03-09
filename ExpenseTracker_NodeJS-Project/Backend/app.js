@@ -8,7 +8,7 @@ app.use(cors());
 
 const signUpRoutes = require('./routes/signup');
 const loginRoutes = require('./routes/login');
-// const expenseRoutes = require('./routes/expense')
+const expenseRoutes = require('./routes/expense')
 const User = require('./models/user');
 const UserExpense = require('./models/expense')
 
@@ -16,7 +16,7 @@ app.use(bodyParser.json({ extended: false }));
 
 app.use(signUpRoutes);
 app.use(loginRoutes);
-// app.use(expenseRoutes)
+app.use(expenseRoutes)
 
 User.hasMany(UserExpense);
 UserExpense.belongsTo(User)

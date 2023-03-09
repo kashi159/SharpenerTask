@@ -121,7 +121,7 @@ async function onSubmit(e) {
             if(e.target.classList.contains('edit')){
                 var li=e.target.parentElement;
                 id = li.id;
-                const response = await axios.get(`http://localhost:8080/edit/${id}`);
+                const response = await axios.get(`http://localhost:4000/user/edit/${id}`, { headers: {"Authorization" : token }});
                 console.log(response)
                 expense.removeChild(li);
                 amount.value = response.data.amount;
@@ -148,7 +148,7 @@ async function onSubmit(e) {
             };
         try{
             // const response = await axios.put(`http://localhost:8080/update/${id}` , updatedExpense);
-            const response = await axios.put(`http://localhost:8080/edit/${id}`, updatedExpense)
+            const response = await axios.put(`http://localhost:4000/user/edit/${id}`, updatedExpense, { headers: {"Authorization" : token }})
             showOnScreen(response.data);
             myForm.removeEventListener('submit', updateItem);
             myForm.addEventListener('submit', onSubmit);
