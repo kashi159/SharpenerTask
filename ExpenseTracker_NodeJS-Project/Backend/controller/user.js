@@ -58,7 +58,7 @@ exports.postLoginUser = async (req, res, next) =>{
     // console.log(userId)
     User.findAll({where: {id: userId}})
     .then(user => {
-        return res.json(user)
+        return res.json(user[0].isPremiumUser)
     })
     .catch(err => console.log(err))
   }

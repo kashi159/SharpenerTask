@@ -37,8 +37,8 @@ function showOnScreen(user) {
 async function isPremium(){
     try{
         const user = await axios.get("http://localhost:4000/user/status", { headers: {"Authorization" : token }})
-        // console.log(user.data[0].isPremiumUser)
-        if(user.data[0].isPremiumUser === true){
+        // console.log(user)
+        if(user.data === true){
             razorpayBtn.style.display = "none";
         }
     }catch(err){
