@@ -6,7 +6,11 @@ const expense = document.getElementById('collection');
 const msg = document.querySelector('.msg');
 const token = localStorage.getItem('token')
 const razorpayBtn = document.getElementById('razorpay')
-
+const razorpayPr = document.getElementById('razorpay-pr');
+const boardbtn = document.getElementById('board-btn');
+const leaderBoard = document.getElementById('collection-board')
+const leaderBoard1 = document.getElementById('leaderboard')
+const boardSection = document.getElementById('leadership-br') 
 
 
 function showOnScreen(user) {
@@ -39,11 +43,42 @@ async function isPremium(){
         const user = await axios.get("http://localhost:4000/user/status", { headers: {"Authorization" : token }})
         // console.log(user)
         if(user.data === true){
-            razorpayBtn.style.display = "none";
+            razorpayBtn.style.display ="none";
+            razorpayPr.style.display= "flex";
+            boardbtn.style.display= "inline";
+            boardSection.style.display = "block";
+            // boardSection.style.display = "flex";
         }
     }catch(err){
         console.log(err)
     }
+}
+
+boardbtn.addEventListener("click", showLeaderBoard)
+
+async function showLeaderBoard(e){
+    e.preventDefault();
+    try{
+        leaderBoard1.style.display= 'block'
+        const users = await axios.get("http://localhost:4000/premium/leadershipboard");
+        // console.log(users);
+        users.data.forEach(user=>{
+            // console.log(user)
+            showBoard(user);
+        })
+        
+    }catch(err){
+        console.log(err)
+    }
+}
+
+function showBoard(user){
+    const li = document.createElement('li');
+    li.className= 'list-group-item'
+    // li.setAttribute('id', user.id);
+    const textNode= `Name: ${user.name}-  Total Expense:${user.totalExpense}`
+    li.appendChild(document.createTextNode(textNode));
+    leaderBoard.appendChild(li);
 }
 
 async function showTotalExpense() {

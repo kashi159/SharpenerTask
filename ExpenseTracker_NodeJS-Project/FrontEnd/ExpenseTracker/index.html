@@ -15,6 +15,7 @@
         <div class="col-12 text-center">
             <div class="box"><h1>Expense Tracker</h1></div>
             <button id="razorpay" class="btn btn-info btn-sm float-end membership">Buy Premium</button>
+            <div id="razorpay-pr" class="btn btn-info btn-sm float-end" style="display: none;">You are a premium user</div>
             <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         </div>
         <div>
@@ -47,6 +48,7 @@
                 </div>
                 <div class="text-center mt-3">
                     <button class="btn btn-primary" type="submit">Add Expense</button>
+                    <button id="board-btn" class="btn btn-secondary" type="submit" style="display: none;">Leadership Board</button>
                 </div>
             </form>
         </div>
@@ -59,6 +61,18 @@
         </div>
         <div class="box">
             <ol id="collection" class="list-group">
+
+            </ol>
+        </div>
+    </section>
+    <section id="leadership-br" style="display: none;">
+        <div class="row">
+            <div class="col-12">
+                <h3 id="leaderboard" class="mt-3" style="text-align: center; display: none;">Leadership Board:</h3>
+            </div>
+        </div>
+        <div class="box">
+            <ol id="collection-board" class="list-group">
 
             </ol>
         </div>

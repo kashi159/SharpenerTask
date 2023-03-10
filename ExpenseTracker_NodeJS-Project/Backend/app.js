@@ -8,11 +8,12 @@ app.use(cors());
 
 const signUpRoutes = require('./routes/signup');
 const loginRoutes = require('./routes/login');
-const expenseRoutes = require('./routes/expense')
-const purchaseRoutes = require('./routes/purchase')
+const expenseRoutes = require('./routes/expense');
+const purchaseRoutes = require('./routes/purchase');
+const premiumRoutes = require('./routes/premium');
 const User = require('./models/user');
 const UserExpense = require('./models/expense');
-const Order = require('./models/order')
+const Order = require('./models/order');
 
 app.use(bodyParser.json({ extended: false }));
 
@@ -20,6 +21,7 @@ app.use(signUpRoutes);
 app.use(loginRoutes);
 app.use(expenseRoutes);
 app.use(purchaseRoutes);
+app.use(premiumRoutes)
 
 User.hasMany(UserExpense);
 UserExpense.belongsTo(User)
