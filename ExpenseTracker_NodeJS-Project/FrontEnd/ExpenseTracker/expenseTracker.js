@@ -61,7 +61,7 @@ async function showLeaderBoard(e){
     try{
         leaderBoard1.style.display= 'block'
         const users = await axios.get("http://localhost:4000/premium/leadershipboard", { headers: {"Authorization" : token }});
-        console.log(users);
+        // console.log(users);
         users.data.forEach(user=>{
             // console.log(user)
             showBoard(user);
