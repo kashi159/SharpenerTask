@@ -60,7 +60,7 @@ async function showLeaderBoard(e){
     e.preventDefault();
     try{
         leaderBoard1.style.display= 'block'
-        const users = await axios.get("http://localhost:4000/premium/leadershipboard");
+        const users = await axios.get("http://localhost:4000/premium/leadershipboard", { headers: {"Authorization" : token }});
         // console.log(users);
         users.data.forEach(user=>{
             // console.log(user)
@@ -236,7 +236,9 @@ async function onSubmit(e) {
 
         rzp1.on('payment.failed', function (response){
             console.log(response);
+            axios.post("http://localhost:4000/purchase/transactionfailstatus", response.error.metadata ,{ headers: {"Authorization" : token }})
             alert("Transaction Failed")
+
         });
     }
      

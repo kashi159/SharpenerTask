@@ -4,8 +4,8 @@ const Order = require('../models/order');
 exports.purchaseMembership = async (req, res, next) => {
   try {
     const rzp = new Razorpay({
-      key_id: 'rzp_test_YpmoDDRmDk8FUH',
-      key_secret: 'iHYOgULiMFooG7pKgJC8j4EJ'
+      key_id: 'rzp_test_dDc29wYu6M6eKZ',
+      key_secret: 'U3TkkASctOlSKWbTeXY0L4Yu'
     });
     const amount = 1500;
 
@@ -31,11 +31,20 @@ exports.transactionUpdate = async (req, res, next) => {
         return res.status(202).json({ success: true, message: "Transaction Successful" });
       }).catch((err)=>{
         console.log(err)
-        order.update({ status: "FAILED" })
-        return res.status(403).json({ message: 'Transaction Failed', error: err });
       })
     } catch (err) {
       console.log(err);
     }
   };
   
+  exports.transactionUpdate = async (req , res, next) => {
+    try{
+      console.log(req.body.order_id)
+      const orderid = req.body.order_id;
+      const order = await Order.findOne({ where: { orderid: orderid } });
+      order.update({ status: "FAILED" })
+      return res.status(403).json({ message: 'Transaction Failed'});
+    }catch(err){
+      console.log(err)
+    }
+  }
