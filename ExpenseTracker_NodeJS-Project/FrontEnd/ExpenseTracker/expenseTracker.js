@@ -236,9 +236,9 @@ async function onSubmit(e) {
 
         rzp1.on('payment.failed', async function (response){
             console.log(response);
-            await axios.post("http://localhost:4000/purchase/transactionfailstatus", response.error.metadata ,{ headers: {"Authorization" : token }})
             alert("Transaction Failed")
-
+            await axios.post("http://localhost:4000/purchase/transactionfailstatus", response.error.metadata ,{ headers: {"Authorization" : token }})
+            
         });
     }
      
