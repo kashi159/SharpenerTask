@@ -10,8 +10,13 @@ const razorpayPr = document.getElementById('razorpay-pr');
 const boardbtn = document.getElementById('board-btn');
 const leaderBoard = document.getElementById('collection-board')
 const leaderBoard1 = document.getElementById('leaderboard')
-const boardSection = document.getElementById('leadership-br') 
+const boardSection = document.getElementById('leadership-br');
+const reportBtn = document.getElementById('report')
+reportBtn.addEventListener('click', report)
 
+function report(){
+    window.location.href = "../Premium/daytodayExpense.html"
+}
 
 function showOnScreen(user) {
     const li = document.createElement('li');
@@ -47,7 +52,7 @@ async function isPremium(){
             razorpayPr.style.display= "flex";
             boardbtn.style.display= "inline";
             boardSection.style.display = "block";
-            // boardSection.style.display = "flex";
+            reportBtn.style.display = "inline";
         }
     }catch(err){
         console.log(err)
