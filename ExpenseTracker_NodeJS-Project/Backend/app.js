@@ -16,6 +16,7 @@ const passwordReset = require('./routes/resetlink');
 const User = require('./models/user');
 const UserExpense = require('./models/expense');
 const Order = require('./models/order');
+const DownloadLink = require('./models/downloads')
 const ForgotPasswordRequests = require('./models/ForgotPasswordRequests')
 
 app.use(bodyParser.json({ extended: false }));
@@ -34,8 +35,11 @@ UserExpense.belongsTo(User)
 User.hasMany(Order);
 Order.belongsTo(User);
 
-User.hasMany(ForgotPasswordRequests)
-ForgotPasswordRequests.belongsTo(User)
+User.hasMany(ForgotPasswordRequests);
+ForgotPasswordRequests.belongsTo(User);
+
+User.hasMany(DownloadLink)
+DownloadLink.belongsTo(User)
 
 sequelize
 // .sync({force: true})
