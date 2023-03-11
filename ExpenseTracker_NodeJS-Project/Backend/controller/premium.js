@@ -1,9 +1,11 @@
 const User = require ('../models/user');
 const UserExpense = require('../models/expense');
 const sequelize = require('../util/userDatabase');
+const S3Services = require('../services/s3services');
 const express = require('express')
-const AWS = require('aws-sdk');
-const { response } = require('express');
+const AWS = require('aws-sdk');;
+const FileDb = require('../models/downloads');
+
 
 async function getAllUsersWithExpenses(req, res) {
   try{  
@@ -21,32 +23,7 @@ async function getAllUsersWithExpenses(req, res) {
   }
 }
 
-function uploadToS3(data, filename) {
-  const BUCKET_NAME = 'expensetrackerapp159';
-  const IAM_USER_KEY = 'AKIA2DHNOY74GHAXP5TK';
-  const IAM_USER_SECRET = '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';
 
-  let s3bucket = new AWS.S3({
-    accessKeyId: IAM_USER_KEY,
-    secretAccessKey: IAM_USER_SECRET
-  });
-
-  return new Promise((resolve, reject) => {
-    var params = {
-      Bucket: BUCKET_NAME,
-      Key: filename,
-      Body: data,
-      ACL: 'public-read'
-    };
-    s3bucket.upload(params, (err, response) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(response.Location);
-      }
-    });
-  });
-}
 
 async function download(req, res, next) {
   try {
@@ -54,7 +31,11 @@ async function download(req, res, next) {
     const expenses = await UserExpense.findAll({ where: { userId: userId } });
     const strExpenses = JSON.stringify(expenses);
     const filename = `Expense${userId}/${new Date()}.txt`;
-    const fileURL = await uploadToS3(strExpenses, filename);
+    const fileURL = await S3Services.uploadToS3(strExpenses, filename);
+    const link = await FileDb.create({
+        fileURL: fileURL,
+        userId: userId
+    })
     res.status(201).json({ fileURL, success: true });
   } catch (err) {
     console.log(err);
@@ -62,8 +43,21 @@ async function download(req, res, next) {
   }
 }
 
+async function downloadFile(req, res, next) {
+  try{
+    const userId = req.user.id;
+    const links = await FileDb.findAll({where: {
+    userId: userId
+  }})
 
-  module.exports = { getAllUsersWithExpenses, download };
+  res.json(links)
+  }catch(err){
+    console.log(err)
+  }
+}
+
+
+  module.exports = { getAllUsersWithExpenses, download, downloadFile};
   
   
   
