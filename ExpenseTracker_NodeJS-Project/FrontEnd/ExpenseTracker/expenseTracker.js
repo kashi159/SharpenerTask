@@ -25,7 +25,7 @@ window.addEventListener("DOMContentLoaded", async() => {
           "Authorization": token
         }
       });
-      console.log(response);
+    //   console.log(response);
       response.data.expenses.forEach((user) => {
         showOnScreen(user);
       });
