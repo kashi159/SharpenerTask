@@ -2,7 +2,10 @@ const UserExpense = require('../models/expense');
 const User = require('../models/user');
 const sequelize = require('../util/userDatabase');
 
+const ITEMS_PER_PAGE = 5;
+
 exports.getUserExpense =  (req, res, next) => {
+  // console.log(req)
     const userId = req.user.id
     // console.log(userId)
     UserExpense.findAll({where: {userId: userId}})
@@ -11,6 +14,38 @@ exports.getUserExpense =  (req, res, next) => {
     })
     .catch(err => console.log(err))
 }
+
+exports.getPageData = async (req, res, next) => {
+  // console.log(req)
+  const page = +req.query.page || 1;
+  let totalItems;
+
+  try {
+    totalItems = await UserExpense.count({ where: { userId: req.user.id } });
+    const expenses = await UserExpense.findAll({
+      where: { userId: req.user.id },
+      offset: (page - 1) * ITEMS_PER_PAGE,
+      limit: ITEMS_PER_PAGE,
+    });
+
+    const pageData = {
+      currentPage: page,
+      hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+      hasPreviousPage: page > 1,
+      nextPage: page + 1,
+      previousPage: page - 1,
+      lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
+    };
+
+    res.json({ expenses, pageData });
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+};
+
+
+
 
 exports.postUserExpense = async (req, res, next) => {
     const amount = req.body.amount;
