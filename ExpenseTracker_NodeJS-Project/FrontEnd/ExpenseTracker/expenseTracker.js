@@ -13,8 +13,18 @@ const leaderBoard1 = document.getElementById('leaderboard')
 const boardSection = document.getElementById('leadership-br');
 const reportBtn = document.getElementById('report')
 const pagination = document.getElementById('pagination');
-reportBtn.addEventListener('click', report)
 const pageInfo = document.getElementById('page-info');
+reportBtn.addEventListener('click', report)
+const rowsperpage = document.getElementById('rowsperpage');
+let selectedOption;
+
+rowsperpage.addEventListener('change',(e)=>{
+    selectedOption = e.target.options[e.target.selectedIndex];
+    selectedOption.setAttribute('selected', 'true');
+    localStorage.setItem('rowsPerPage', rowsperpage.value);
+    localStorage.setItem('selectedOption', selectedOption.value);
+})
+const itemsPerPage = localStorage.getItem('rowsPerPage');
 const page = 1;
 
 
@@ -23,7 +33,8 @@ window.addEventListener("DOMContentLoaded", async() => {
     try {
       const response = await axios.get(`http://localhost:4000/user/expense/page/?page=${page}`, {
         headers: {
-          "Authorization": token
+          "Authorization": token,
+          "itemsPerPage" : itemsPerPage
         }
       });
     //   console.log(response);
@@ -31,6 +42,8 @@ window.addEventListener("DOMContentLoaded", async() => {
         showOnScreen(user);
       });
       showPagination(response);
+      selectedOption = localStorage.getItem('selectedOption')
+      rowsperpage.value = selectedOption
     } catch (err) {
       console.error(err);
     }
