@@ -1,32 +1,19 @@
-const myForm = document.getElementById('my-form');
-const amount = document.getElementById('expense-amount');
-const description = document.getElementById('description');
-const category = document.getElementById('category');
-const expense = document.getElementById('collection');
-const msg = document.querySelector('.msg');
-const token = localStorage.getItem('token')
-const razorpayBtn = document.getElementById('razorpay')
-const razorpayPr = document.getElementById('razorpay-pr');
-const boardbtn = document.getElementById('board-btn');
-const leaderBoard = document.getElementById('collection-board')
-const leaderBoard1 = document.getElementById('leaderboard')
-const boardSection = document.getElementById('leadership-br');
-const reportBtn = document.getElementById('report')
-const pagination = document.getElementById('pagination');
-reportBtn.addEventListener('click', report)
-const pageInfo = document.getElementById('page-info');
-const page = 1;
+const [myForm, amount, description, category, expense, msg, razorpayBtn, razorpayPr, boardbtn, leaderBoard, leaderBoard1, boardSection, reportBtn, pagination] = [
+    'my-form', 'expense-amount', 'description', 'category', 'collection', '.msg', 'razorpay', 'razorpay-pr', 'board-btn', 'collection-board', 'leaderboard', 'leadership-br', 'report', 'pagination'
+  ].map(id => document.getElementById(id));
 
+  const token = localStorage.getItem('token')
+  const page = 1;
 
-window.addEventListener("DOMContentLoaded", async() => {
-   
+  
+
+  async function fetchExpenses(page) {
     try {
       const response = await axios.get(`http://localhost:4000/user/expense/page/?page=${page}`, {
         headers: {
           "Authorization": token
         }
       });
-    //   console.log(response);
       response.data.expenses.forEach((user) => {
         showOnScreen(user);
       });
@@ -36,10 +23,32 @@ window.addEventListener("DOMContentLoaded", async() => {
     }
     showTotalExpense();
     isPremium();
+  }
+  
+  window.addEventListener("DOMContentLoaded", async() => {
+    fetchExpenses(page);
   });
   
+  async function getPage(page) {
+    fetchExpenses(page);
+  }
 
-function showPagination(response){
+  async function showLeaderBoard(e) {
+    e.preventDefault();
+    try {
+      leaderBoard1.style.display = 'block'
+      const users = await axios.get("http://localhost:4000/premium/leadershipboard", { headers: { "Authorization": token } });
+      users.data.forEach(user => {
+        showBoard(user);
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  
+  boardbtn.addEventListener("click", showLeaderBoard);
+
+  function showPagination(response){
     pagination.innerHTML = '';
     const { currentPage, hasNextPage, nextPage, hasPreviousPage, previousPage, lastPage } =
     response.data.pageData;
@@ -53,7 +62,7 @@ function showPagination(response){
     }
         const btn1 = document.createElement('button');
         // btn1.add.className = 'page-link'
-        btn1.innerHTML = `<h5>${currentPage}</h5>`;
+        btn1.innerHTML = `<h3>${currentPage}</h3>`;
         btn1.addEventListener('click', ()=> getPage(currentPage));
         pagination.appendChild(btn1);
 
@@ -64,21 +73,14 @@ function showPagination(response){
         btn3.addEventListener('click', ()=> getPage(nextPage));
         pagination.appendChild(btn3);
     }
-    pageInfo.textContent = `Page${currentPage} of ${lastPage}`
 }
 
 async function getPage(page){
     try {
-      const response = await axios.get(`http://localhost:4000/user/expense/page/?page=${page}`, {
-        headers: {
-          "Authorization": token
-        }
-      });
-    //   console.log(response);
-      response.data.expenses.forEach((user) => {
+      page.data.expenses.forEach((user) => {
         showOnScreen(user);
       });
-      showPagination(response);
+      showPagination(page);
     } catch (err) {
       console.error(err);
     }
@@ -127,24 +129,6 @@ async function isPremium(){
             boardSection.style.display = "block";
             reportBtn.style.display = "inline";
         }
-    }catch(err){
-        console.log(err)
-    }
-}
-
-boardbtn.addEventListener("click", showLeaderBoard)
-
-async function showLeaderBoard(e){
-    e.preventDefault();
-    try{
-        leaderBoard1.style.display= 'block'
-        const users = await axios.get("http://localhost:4000/premium/leadershipboard", { headers: {"Authorization" : token }});
-        // console.log(users);
-        users.data.forEach(user=>{
-            // console.log(user)
-            showBoard(user);
-        })
-        
     }catch(err){
         console.log(err)
     }
@@ -306,6 +290,4 @@ async function onSubmit(e) {
             
         });
     }
-     
-   
-
+  
