@@ -84,7 +84,8 @@ async function getPage(page){
     try {
       const response = await axios.get(`http://localhost:4000/user/expense/page/?page=${page}`, {
         headers: {
-          "Authorization": token
+          "Authorization": token,
+          "itemsPerPage" : itemsPerPage
         }
       });
     //   console.log(response);
