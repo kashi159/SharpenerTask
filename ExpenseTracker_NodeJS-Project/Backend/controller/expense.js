@@ -17,7 +17,7 @@ exports.getUserExpense =  (req, res, next) => {
 
 exports.getPageData = async (req, res, next) => {
   const itemsPerPage = parseInt(req.header("itemsPerPage"))
-  console.log('itemsPerPAGE>>>>>', typeof itemsPerPage)
+  // console.log('itemsPerPAGE>>>>>', typeof itemsPerPage)
   const ITEMS_PER_PAGE = itemsPerPage;
   const page = +req.query.page || 1;
   let totalItems;

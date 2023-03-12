@@ -23,6 +23,7 @@ rowsperpage.addEventListener('change',(e)=>{
     selectedOption.setAttribute('selected', 'true');
     localStorage.setItem('rowsPerPage', rowsperpage.value);
     localStorage.setItem('selectedOption', selectedOption.value);
+    window.location.reload()
 })
 const itemsPerPage = localStorage.getItem('rowsPerPage');
 const page = 1;
@@ -215,6 +216,7 @@ async function onSubmit(e) {
         });
         showOnScreen(response.data);
         //clear fields
+        showTotalExpense()
         amount.value = '';
         description.value = '';
     }catch (err){
