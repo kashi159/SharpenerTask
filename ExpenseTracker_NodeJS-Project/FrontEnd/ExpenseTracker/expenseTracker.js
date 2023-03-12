@@ -89,6 +89,7 @@ async function getPage(page){
           "itemsPerPage" : itemsPerPage
         }
       });
+      removeFromScreen()
     //   console.log(response);
       response.data.expenses.forEach((user) => {
         showOnScreen(user);
@@ -105,6 +106,8 @@ async function getPage(page){
 function report(){
     window.location.href = "../Premium/daytodayExpense.html"
 }
+
+const displayedExpenses = [];
 
 function showOnScreen(user) {
     const li = document.createElement('li');
@@ -129,6 +132,15 @@ function showOnScreen(user) {
     li.appendChild(editBtn);
     expense.appendChild(li);
 
+    displayedExpenses.push(li);
+
+}
+function removeFromScreen(){
+    displayedExpenses.forEach(li => {
+        expense.removeChild(li);
+      });
+      // clear the displayedExpenses array
+      displayedExpenses.length = 0;
 }
 
 async function isPremium(){
