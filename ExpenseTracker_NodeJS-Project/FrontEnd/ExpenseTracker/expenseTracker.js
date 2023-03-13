@@ -16,7 +16,13 @@ const pagination = document.getElementById('pagination');
 const pageInfo = document.getElementById('page-info');
 reportBtn.addEventListener('click', report)
 const rowsperpage = document.getElementById('rowsperpage');
+const logout = document.getElementById('logout')
 let selectedOption;
+
+logout.addEventListener('click', ()=>{
+    window.location.href = '../Login/login.html';
+    localStorage.removeItem('token');
+})
 
 rowsperpage.addEventListener('change',(e)=>{
     selectedOption = e.target.options[e.target.selectedIndex];
