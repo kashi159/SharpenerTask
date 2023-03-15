@@ -2,7 +2,7 @@ const User = require('../models/user');
 const Sib = require('sib-api-v3-sdk');
 const ForgotPasswordRequests= require('../models/ForgotPasswordRequests');
 const bcrypt = require('bcrypt')
-// require('dotenv').config();
+require('dotenv').config();
 const client = Sib.ApiClient.instance
 const apiKey = client.authentications['api-key']
 apiKey.apiKey = process.env.API_KEY

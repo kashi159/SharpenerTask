@@ -1,6 +1,6 @@
 const Razorpay = require('razorpay');
 const Order = require('../models/order');
-// require('dotenv').config();
+require('dotenv').config();
 
 exports.purchaseMembership = async (req, res, next) => {
   try {
