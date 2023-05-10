@@ -2,9 +2,9 @@ var obj = {
     val: 100 
     }
 
-    function fun(){
-    console.log(this.val);
-    }
+function fun(){
+console.log(this.val);
+}
     
 fun.call(obj); //100
 
